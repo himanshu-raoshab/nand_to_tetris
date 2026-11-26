@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Capstone Project Report — Himanshu Yadav (2501730437)</title>
+<style>
+  @page { size: A4; margin: 14mm 15mm; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: #1e293b;
+    font-size: 10.2pt;
+    line-height: 1.42;
+    margin: 0;
+  }
+  .header {
+    border-bottom: 2.5px solid #1d4ed8;
+    padding-bottom: 10px;
+    margin-bottom: 12px;
+  }
+  .course { font-size: 9.5pt; color: #475569; font-weight: 600; letter-spacing: 0.2px; }
+  h1 { font-size: 18pt; color: #0f172a; margin: 4px 0 8px 0; }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 9.5pt;
+  }
+  .meta-grid div strong { color: #1e3a8a; }
+  h2 {
+    font-size: 12.2pt;
+    color: #1e3a8a;
+    border-left: 4px solid #2563eb;
+    padding-left: 8px;
+    margin: 14px 0 6px 0;
+  }
+  p { margin: 5px 0 8px 0; }
+  ul { margin: 4px 0 8px 18px; padding: 0; }
+  li { margin-bottom: 3px; }
+  code {
+    font-family: 'Cascadia Code', Consolas, monospace;
+    background: #f1f5f9;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-size: 9pt;
+    color: #0f172a;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0 10px 0;
+    font-size: 9.2pt;
+  }
+  th, td {
+    border: 1px solid #cbd5e1;
+    padding: 5px 8px;
+    text-align: left;
+  }
+  th { background: #f8fafc; color: #0f172a; font-weight: 600; }
+  .shot-box {
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 8px;
+    margin: 8px 0 10px 0;
+    background: #f8fafc;
+    page-break-inside: avoid;
+  }
+  .shot-box img {
+    width: 100%;
+    max-height: 270px;
+    object-fit: contain;
+    display: block;
+    border: 1px solid #e2e8f0;
+    background: #fff;
+  }
+  .caption {
+    font-size: 8.8pt;
+    color: #475569;
+    margin-top: 5px;
+    font-weight: 600;
+  }
+  .placeholder-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 8px 0;
+    page-break-inside: avoid;
+  }
+  .placeholder {
+    border: 1.5px dashed #94a3b8;
+    border-radius: 6px;
+    background: #f8fafc;
+    padding: 14px 12px;
+    text-align: center;
+    color: #475569;
+    font-size: 8.8pt;
+    min-height: 76px;
+  }
+  .placeholder strong { display: block; color: #0f172a; margin-bottom: 4px; }
+  .callout {
+    background: #fefce8;
+    border: 1px solid #fde047;
+    border-left: 4px solid #eab308;
+    border-radius: 5px;
+    padding: 8px 11px;
+    margin: 8px 0;
+    font-size: 9.5pt;
+    page-break-inside: avoid;
+  }
+  .page-break { page-break-before: always; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="course">Nand to Tetris – I (ETCCNT301) &mdash; School of Engineering &amp; Technology, K.R. Mangalam University</div>
+  <h1>Capstone Project Report: Make the Computer Draw a Box</h1>
+  <div class="meta-grid">
+    <div><strong>Student Name:</strong> Himanshu Yadav</div>
+    <div><strong>Roll Number:</strong> 2501730437</div>
+    <div><strong>Personal Number K:</strong> 37</div>
+    <div><strong>Box Position:</strong> Row 37, Left Edge</div>
+    <div><strong>Box Size:</strong> 32 &times; 20 pixels</div>
+    <div><strong>Assembler Feature:</strong> K mod 3 = 1</div>
+  </div>
+</div>
+
+<h2>1. Aim &amp; Personal Specifications</h2>
+<p>
+  The goal of this capstone is to connect the Hack hardware platform, a custom Python two-pass assembler, and a Hack assembly program (<code>Box.asm</code>) so the Hack computer draws a black rectangular box on the screen while any key is pressed and clears it when the key is released.
+</p>
+<table>
+  <tr><th>Parameter</th><th>Calculation (Roll No. 2501730437)</th><th>Value Used</th></tr>
+  <tr><td>Personal number <code>K</code></td><td>Last two digits of <code>2501730437</code></td><td><code>37</code></td></tr>
+  <tr><td>Assembler extra feature</td><td><code>37 mod 3 = 1</code></td><td>Line-numbered error reporting without crashing</td></tr>
+  <tr><td>Box height &amp; start row</td><td>Starts at row <code>K</code>, 20 rows tall</td><td>Rows <code>37</code> to <code>56</code> (height <code>20</code>)</td></tr>
+  <tr><td>Box width</td><td><code>16 &times; ((37 mod 4) + 1) = 16 &times; 2</code></td><td><code>32</code> pixels (2 consecutive 16-bit words/row)</td></tr>
+  <tr><td>Start RAM word address</td><td><code>SCREEN + 32 &times; 37 = 16384 + 1184</code></td><td><code>17568</code></td></tr>
+</table>
+
+<h2>2. Part A &mdash; Build the Hack Computer</h2>
+<p>
+  The Hack computer integrates three top-level HDL chips located in <code>part a/</code> alongside the foundational gates, ALU, registers, RAM, and PC chips:
+</p>
+<ul>
+  <li><strong><code>CPU.hdl</code>:</strong> Decodes A-instructions (<code>instruction[15]=0</code>) and C-instructions (<code>instruction[15]=1</code>), routes <code>ARegister</code>, <code>DRegister</code>, and <code>Mux16</code> into the <code>ALU</code>, drives <code>writeM</code>, and evaluates <code>ng</code>/<code>zr</code> jump bits to control <code>PC</code>.</li>
+  <li><strong><code>Memory.hdl</code>:</strong> Maps the 15-bit address across <code>RAM16K</code> (<code>0x0000–0x3FFF</code>), <code>Screen</code> (<code>0x4000–0x5FFF</code>), and <code>Keyboard</code> (<code>0x6000</code>) via <code>DMux4Way</code>, <code>Or</code>, and <code>Mux4Way16</code>.</li>
+  <li><strong><code>Computer.hdl</code>:</strong> Connects <code>ROM32K</code>, <code>CPU</code>, and <code>Memory</code> controlled by the external <code>reset</code> pin.</li>
+</ul>
+<p>
+  <strong>Built-in Chips Note:</strong> <code>ARegister</code>, <code>DRegister</code>, <code>Screen</code>, <code>Keyboard</code>, and <code>ROM32K</code> are Project 5 built-in chips. During simulation in the Nand2Tetris Web IDE, standard sub-chips (<code>ALU</code>, <code>PC</code>, <code>Mux16</code>, <code>And</code>, <code>Or</code>, <code>Not</code>) also used the simulator's built-in definitions.
+</p>
+
+<div class="shot-box">
+  <img src="cpu_tst_pass.png" alt="CPU.tst passing in Nand2Tetris Web IDE">
+  <div class="caption">Figure 1: Verified CPU.tst run in Nand2Tetris Web IDE &mdash; Steps: 50, Outputs: 93, Clock: 46 (&ldquo;Simulation successful: The output file is identical to the compare file&rdquo;).</div>
+</div>
+
+<div class="placeholder-grid">
+  <div class="placeholder"><strong>Screenshot Slot: Memory.tst</strong>Insert Hardware Simulator screenshot after running <code>Memory.tst</code> on <code>Memory.hdl</code>.</div>
+  <div class="placeholder"><strong>Screenshot Slot: ComputerAdd.tst</strong>Insert Hardware Simulator screenshot after running <code>ComputerAdd.tst</code> on <code>Computer.hdl</code>.</div>
+  <div class="placeholder"><strong>Screenshot Slot: ComputerMax.tst</strong>Insert Hardware Simulator screenshot after running <code>ComputerMax.tst</code> on <code>Computer.hdl</code>.</div>
+  <div class="placeholder"><strong>Screenshot Slot: ComputerRect.tst</strong>Insert Hardware Simulator screenshot after running <code>ComputerRect.tst</code> on <code>Computer.hdl</code>.</div>
+</div>
+
+<div class="page-break"></div>
+
+<h2>3. Part B &mdash; Python Hack Assembler (<code>assembler.py</code>)</h2>
+<p>
+  The Python assembler (<code>part_b/assembler.py</code>) converts Hack assembly (<code>.asm</code>) into 16-bit binary machine code (<code>.hack</code>) in two passes:
+</p>
+<ul>
+  <li><strong>Pass 1 (<code>clean_source</code> &amp; labels):</strong> Reads lines with <code>enumerate(..., 1)</code> to retain exact source line numbers, strips <code>//</code> comments and blank lines, validates <code>(LABEL)</code> declarations against duplicates/reserved names, and records each label's ROM address.</li>
+  <li><strong>Pass 2 (encoding &amp; variables):</strong> Translates A-instructions (<code>@symbol</code> or numeric constant, allocating new variables from RAM <code>16</code> upward) and C-instructions (<code>111</code> + <code>comp</code> + <code>dest</code> + <code>jump</code>).</li>
+  <li><strong>K-Specific Feature (<code>K mod 3 = 1</code>):</strong> Any invalid destination, computation, jump, symbol, or out-of-range constant raises <code>AssemblyError</code> formatted as <code>Line &lt;N&gt;: invalid instruction '&lt;code&gt;': &lt;reason&gt;</code> and exits with status <code>1</code> without writing invalid <code>.hack</code> output.</li>
+</ul>
+
+<div class="shot-box">
+  <img src="part_b_terminal.png" alt="Part B assembler.py local run output">
+  <div class="caption">Figure 2: Python 3.12.10 execution of <code>assembler.py</code> on <code>Add.asm</code> (6), <code>Max.asm</code> (16), <code>Rect.asm</code> (25), <code>Pong.asm</code> (27,483), <code>Box.asm</code> (52), and <code>bad_test.asm</code> (line-numbered error on Line 2).</div>
+</div>
+
+<table>
+  <tr><th>Program</th><th>Lines Assembled</th><th>Status in <code>assembler.py</code></th><th>Official Assembler Comparison</th></tr>
+  <tr><td><code>Add.asm</code></td><td>6 instructions</td><td>Assembled cleanly (<code>Add.hack</code>)</td><td>Pending official assembler diff</td></tr>
+  <tr><td><code>Max.asm</code></td><td>16 instructions</td><td>Assembled cleanly (<code>Max.hack</code>)</td><td>Pending official assembler diff</td></tr>
+  <tr><td><code>Rect.asm</code></td><td>25 instructions</td><td>Assembled cleanly (<code>Rect.hack</code>)</td><td>Pending official assembler diff</td></tr>
+  <tr><td><code>Pong.asm</code></td><td>27,483 instructions</td><td>Assembled cleanly (<code>Pong.hack</code>)</td><td>Pending official assembler diff</td></tr>
+</table>
+
+<h2>4. Part C &mdash; Box Program (<code>Box.asm</code> &amp; <code>Box.hack</code>)</h2>
+<p>
+  <code>part_c/Box.asm</code> continuously polls the keyboard memory map at <code>@KBD</code> (<code>24576</code>) in <code>(START)</code>:
+</p>
+<ul>
+  <li><strong>When a key is pressed (<code>M != 0</code>):</strong> Jumps to <code>(DRAW)</code>, sets screen pointer <code>R13 = 17568</code> and row counter <code>R14 = 20</code>, then in <code>(DRAW_LOOP)</code> writes <code>-1</code> (16 black pixels) to <code>RAM[R13]</code> and <code>RAM[R13+1]</code> (32 pixels wide), increments <code>R13</code> by <code>32</code> words to advance one row, and repeats for 20 rows.</li>
+  <li><strong>When released (<code>M == 0</code>):</strong> Jumps to <code>(CLEAR)</code> and writes <code>0</code> (white) to the exact same <code>2 &times; 20</code> screen words before looping back to <code>(START)</code>.</li>
+</ul>
+<p>
+  Assembling <code>Box.asm</code> with <code>part_b/assembler.py</code> produced the 52-line binary file <code>part_c/Box.hack</code>.
+</p>
+
+<div class="placeholder-grid">
+  <div class="placeholder"><strong>Screenshot Slot: Box.hack (Key Pressed)</strong>Load <code>Box.hack</code> in CPU Emulator, hold a key, and insert screenshot showing the 32&times;20 black box at row 37.</div>
+  <div class="placeholder"><strong>Screenshot Slot: Box.hack (Key Released)</strong>Release the key in CPU Emulator and insert screenshot showing the box cleared from the screen.</div>
+</div>
+
+<h2>5. One Mistake Fixed During Development</h2>
+<div class="callout">
+  <strong>Screen Row Addressing &amp; Stride Correction:</strong> While implementing <code>Box.asm</code>, adding the row index <code>K = 37</code> directly to <code>SCREEN</code> (<code>16384 + 37 = 16421</code>) draws pixels horizontally along row 1 instead of starting at row 37, because each 512-pixel screen row spans <code>512 / 16 = 32</code> consecutive memory words. I fixed this by computing the row start address as <code>SCREEN + (32 &times; 37) = 17568</code> and updating the row loop pointer <code>R13</code> by <code>+32</code> after writing the two horizontal words (<code>M=-1; A=A+1; M=-1</code>) per row, ensuring the 32&times;20 box appears accurately at row 37 along the left edge.
+</div>
+
+<h2>6. Conclusion</h2>
+<p>
+  This capstone integrates the Hack hardware design (<code>CPU.hdl</code>, <code>Memory.hdl</code>, <code>Computer.hdl</code>), a custom two-pass Python assembler with line-numbered diagnostics (<code>K mod 3 = 1</code>), and memory-mapped I/O programming in <code>Box.asm</code> tailored to <code>K = 37</code>. Verification of <code>CPU.tst</code> and the Python assembler passed as recorded above; the remaining simulator screenshots can be inserted into the marked slots above prior to final ZOSIMA upload.
+</p>
+
+</body>
+</html>

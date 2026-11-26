@@ -1,0 +1,1 @@
+Place official CPU.tst, Memory.tst, ComputerAdd.tst, ComputerMax.tst and ComputerRect.tst files here, along with required .cmp files.
